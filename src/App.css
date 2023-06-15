@@ -1,0 +1,15 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body,html{
+  font-family:'fira code' ;
+  max-width: 430px;
+  margin: auto;
+}
+section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
