@@ -36,7 +36,7 @@ function Home(): JSX.Element {
             url: 'https://weatherapi-com.p.rapidapi.com/current.json',
             params: { q: city },
             headers: {
-                'X-RapidAPI-Key': 'd85a2b9052msh567e2f1b30eb732p15dfebjsn6938baade97b',
+                'X-RapidAPI-Key': import.meta.env.VITE_API_KEY,
                 'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
             }
         };
