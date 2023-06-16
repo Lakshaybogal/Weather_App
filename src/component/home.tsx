@@ -4,6 +4,7 @@ import { TiWeatherSunny, TiWeatherNight, TiWeatherShower, TiWeatherStormy } from
 import { BiSearchAlt } from 'react-icons/bi';
 import { MdLocationPin } from 'react-icons/md';
 import { WiCloudy, WiNightCloudy } from "weather-icons-react";
+import Footer from './footer'
 import './styles.css'
 
 function Home(): JSX.Element {
@@ -98,12 +99,12 @@ function Home(): JSX.Element {
     return (
         <section className="card">
             {err !== '' ? <h4>{err}</h4> : <div className="main_Card">
-                <h4>{location.name}, {location.region}</h4>
+                <h4>{location.name} {location.region}</h4>
 
                 <div className="displayIcon flex-col">
                     <div className="weatherIcons ">{Icons}</div>
                     <h3 className="tempText">{current.temp_c}&deg;</h3>
-                    <h3 className="conditionText">{current.condition.text}{current.is_day === 1 ? <p>Day</p>:<p>Night</p>}</h3>
+                    <h3 className="conditionText">{current.condition.text}{current.is_day === 1 ? <p>Day</p> : <p>Night</p>}</h3>
                 </div>
                 <div className="weather">
                     <div className="weatherInfo">
@@ -123,13 +124,18 @@ function Home(): JSX.Element {
                         <h4>Wind Speed</h4>
                     </div>
                 </div>
+
+                <Footer />
                 <form className="input">
                     <button className="location-btn" onClick={(e) => { (getLocation(e)) }}><MdLocationPin /></button>
-                    <input type="text" className="input-box" placeholder="City name" name="city" onChange={(e) => { setCity(e.target.value) }} />
+                    <input type="text" className="input-box" placeholder="Enter city name or click location icon for current weather" name="city" onChange={(e) => { setCity(e.target.value) }} />
                     <button className="input-btn" onClick={getWeather}><BiSearchAlt /></button>
+                    <h6 className="mark">Made with passion 😎 by Lakshay Bogal</h6>
                 </form>
-
             </div>}
+            <div>
+
+            </div>
 
         </section>
 
