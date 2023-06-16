@@ -1,26 +1,42 @@
-
-.main_Card{
+.main_Card {
     padding-top: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.flex-col{
+
+.flex-col {
     display: flex;
     flex-direction: column;
     text-align: center;
     gap: 0.5rem;
 }
-.displayIcon{
+
+.displayIcon {
     padding: 0 1rem;
-    
+
 }
-.weatherIcons{
+
+.weatherIcons {
     font-size: 10rem;
-    padding-top: 1rem;
+    padding-top: 0.5rem;
     margin: 0;
 }
+
+.tempText {
+    position: relative;
+    top: -1.5rem;
+}
+
+.conditionText {
+    padding-top: -1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
 .input {
     display: flex;
     position: fixed;
@@ -29,9 +45,21 @@
 
 .input-box {
     width: 95vw;
-    padding: 1rem;
+    padding: 1rem 4rem;
     border-radius: 50px;
-    border: 2px solid rgba(255, 255, 255, 0.87) ;
+    border: 2px solid rgba(255, 255, 255, 0.87);
+    font-size: 0.8rem;
+}
+
+.location-btn {
+    position: absolute;
+    left: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 10rem;
+    background-color: transparent;
+    font-size: 1.8rem;
+    border: 0;
+    justify-self: center;
 }
 
 .input-btn {
@@ -39,21 +67,24 @@
     right: 0.5rem;
     padding: 0.5rem;
     border-radius: 10rem;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: transparent ;
+    background-color: transparent;
     font-size: 2rem;
     border: 0;
 }
-.input-btn :hover{
+
+.input-btn :hover {
     color: #242424;
-    
 }
-.weather{
-    padding-top: 3rem;
+
+.weather {
+    padding-top: 1rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
 }
-.weatherInfo{
-    padding:1rem;
+
+.weatherInfo {
+    padding: 1rem;
+    background-color: #242424;
+    border-radius: 20px;
 }

@@ -1,13 +1,14 @@
-import axios from "axios"
+import axios from "axios";
 import { useState } from "react";
 import { TiWeatherSunny, TiWeatherNight, TiWeatherShower, TiWeatherStormy } from 'react-icons/ti'
 import { BiSearchAlt } from 'react-icons/bi';
-import { WiCloudy, WiNightCloudy } from "weather-icons-react"
+import { MdLocationPin } from 'react-icons/md';
+import { WiCloudy, WiNightCloudy } from "weather-icons-react";
 import './styles.css'
 
 function Home(): JSX.Element {
 
-    const [city, setCity] = useState('jammu');
+    const [city, setCity] = useState('India');
     const [location, setlocation] = useState({
         name: "",
         region: "",
@@ -23,14 +24,14 @@ function Home(): JSX.Element {
         wind_kph: "",
         feelslike_c: "",
         uv: "",
+        is_day: 1,
     });
-    const [Icons, setICons] = useState(<TiWeatherSunny />)
+    const [Icons, setICons] = useState(<TiWeatherSunny />);
     const [err, setErr] = useState('');
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const getWeather = async (e: any) => {
         e.preventDefault();
-
         const options = {
             method: 'GET',
             url: 'https://weatherapi-com.p.rapidapi.com/current.json',
@@ -52,16 +53,29 @@ function Home(): JSX.Element {
 
         } catch (error) {
             console.error(error);
-            setErr("404 Error")
+            setErr("Check Your Input");
         }
     }
-    // useEffect(() => {
-    //     getWeather(city);
-    // },[]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function getLocation(e: any) {
+
+        try {
+            navigator.geolocation.getCurrentPosition(showPosition);
+            getWeather(e);
+        }
+        catch (error) {
+            setErr("Location Not Working");
+        }
+    }
+
+    function showPosition(position) {
+        setCity(position.coords.latitude + "," + position.coords.longitude);
+
+    }
 
     function getWeatherIcons(conditon: string) {
         conditon = conditon.toLowerCase();
-        if (conditon.match('sunny')) {
+        if (conditon.match('sunny') || conditon.match('clear')) {
             setICons(<TiWeatherSunny />)
         }
         else if (conditon.match('rain')) {
@@ -79,21 +93,18 @@ function Home(): JSX.Element {
         else if (conditon.match('cloudy')) {
             setICons(<WiNightCloudy />)
         }
-
     }
 
     return (
         <section className="card">
-            <div className="main_Card">
-                <div>{location.name === '' ? <h4>Swankha, Jammu and Kashmir</h4> : <h4>{location.name}, {location.region}</h4>} </div>
-                {err !== '' && <h4>{err}</h4>}
+            {err !== '' ? <h4>{err}</h4> : <div className="main_Card">
+                <h4>{location.name}, {location.region}</h4>
+
                 <div className="displayIcon flex-col">
                     <div className="weatherIcons ">{Icons}</div>
-                    <h3>{current.temp_c}&deg;</h3>
-                    <h3>{current.condition.text}</h3>
+                    <h3 className="tempText">{current.temp_c}&deg;</h3>
+                    <h3 className="conditionText">{current.condition.text}{current.is_day === 1 ? <p>Day</p>:<p>Night</p>}</h3>
                 </div>
-
-
                 <div className="weather">
                     <div className="weatherInfo">
                         <h3>{current.feelslike_c}&deg;</h3>
@@ -113,12 +124,15 @@ function Home(): JSX.Element {
                     </div>
                 </div>
                 <form className="input">
+                    <button className="location-btn" onClick={(e) => { (getLocation(e)) }}><MdLocationPin /></button>
                     <input type="text" className="input-box" placeholder="City name" name="city" onChange={(e) => { setCity(e.target.value) }} />
                     <button className="input-btn" onClick={getWeather}><BiSearchAlt /></button>
                 </form>
-            </div>
+
+            </div>}
 
         </section>
+
     )
 }
 
